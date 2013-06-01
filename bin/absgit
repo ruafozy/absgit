@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require 'absgit'
+
+Absgit.new(ARGV).run
+
+# vim: set syntax=ruby:
