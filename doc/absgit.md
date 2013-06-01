@@ -49,6 +49,6 @@ This enables relative paths and symlinks to work.
 
 ## Origin of name
 
-`abs' is from `absolute';
+‘abs’ is from ‘absolute’;
 the software is commonly used with
 absolute pathnames.
