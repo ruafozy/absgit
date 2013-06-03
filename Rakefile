@@ -21,7 +21,10 @@ task :test do
     {
       'RUBYLIB' =>
         (
-          [File.join(__dir__, 'lib')] +
+          [
+            File.join(__dir__, 'lib'),
+            File.join(__dir__, 'test', 'lib'),
+          ] +
           ENV.fetch('RUBYLIB', '').split(':')
         ).join(':')
     },
