@@ -49,7 +49,7 @@ class Absgit
 
   def run
     begin
-      option_parser.order!
+      option_parser.order!(@args)
     rescue OptionParser::ParseError
       $stderr.puts 'Error: incorrect usage'
       $stderr.puts ''
