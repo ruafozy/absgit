@@ -39,8 +39,8 @@ variables in its environment.
 
 Also,
 any argument which contains a slash and denotes
-a path inside the repository is turned into an
-absolute path before being passed to Git.
+a path inside the repository is turned into a
+canonicalised absolute pathname before being passed to Git.
 This enables relative paths and symlinks to work.
 
 ## Options
