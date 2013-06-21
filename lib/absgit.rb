@@ -41,6 +41,12 @@ class Absgit
         @options[:help] = true
       end
 
+      parser.on(
+        '-p', '--path PATH', 'Use PATH to determine Git repository'
+      ) do |path|
+        @options[:path] = path
+      end
+
       parser.on('--version', 'Show program name and version') do
         @options[:version] = true
       end
@@ -69,12 +75,23 @@ class Absgit
     elsif @options[:help]
       puts option_parser
     else
-      repo_path =
-        @args[1..-1].find_all { |arg| repo_object_candidate?(arg) }.
-        each_with_object(nil) { |arg|
-          repo = self.class.get_repo_path(arg)
-          break repo if !repo.nil?
-        }
+      if @options[:path]
+        repo_path = self.class.get_repo_path(@options[:path])
+
+        if repo_path.nil?
+          $stderr.puts \
+            "Fatal error: cannot " +
+            "map path to Git repository: #{@options[:path]}"
+          exit(1)
+        end
+      else
+        repo_path =
+          @args[1..-1].find_all { |arg| repo_object_candidate?(arg) }.
+          each_with_object(nil) { |arg|
+            repo = self.class.get_repo_path(arg)
+            break repo if !repo.nil?
+          }
+      end
 
       if repo_path.nil?
         env = {}

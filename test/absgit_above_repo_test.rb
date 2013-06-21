@@ -159,4 +159,43 @@ class AbsgitAboveRepoTest < MiniTest::Unit::TestCase
 
     assert_equal(num_commits_before + 1, num_commits(repo))
   end
+
+  def test_path_option_works_for_symlink
+    # Given
+
+    repo = get_repo
+
+    tracked_file = File.join(repo, 'tracked_file')
+    FileUtils.touch(tracked_file)
+
+    symlink = './symlink'
+    File.symlink(tracked_file, symlink)
+
+    # When
+
+    system(APP_PATH, '--path', symlink, 'add', symlink)
+
+    # Then
+
+    assert_equal(1, files_in_index(repo).size)
+  end
+
+  def test_path_option_works_for_real_path
+    # Given
+
+    repo = get_repo
+
+    tracked_file = File.join(repo, 'tracked_file')
+    FileUtils.touch(tracked_file)
+
+    real_path = File.realpath(tracked_file)
+
+    # When
+
+    system(APP_PATH, '--path', real_path, 'add', real_path)
+
+    # Then
+
+    assert_equal(1, files_in_index(repo).size)
+  end
 end
