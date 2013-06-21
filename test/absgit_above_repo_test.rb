@@ -13,15 +13,9 @@ class AbsgitAboveRepoTest < MiniTest::Unit::TestCase
   end
 
   def test_options_for_git_are_left_alone
-    refute_match(
-      /--help\b/,
-
-      #> any program that consumes its input will do
-      # instead of "wc"
-
-      %x{
-        PAGER=wc #{APP_PATH_ESC} log --help
-      }
+    refute_equal(
+      `#{APP_PATH_ESC} --help`,
+      `#{APP_PATH_ESC} log --help`
     )
   end
 
