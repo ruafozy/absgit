@@ -9,10 +9,13 @@ task :run, [:absgit_args] do |dummy, args|
   )
 end
 
-desc 'Run the test suite'
-task :test do
-  cmd = 'minitest4', 'test'
+desc %q{Run the test suite (`pat' is used with "-n")}
+task :test, [:pat] do |dummy, args|
   cmd = 'minitest4', '-p', 'test', '--', '-v'
+
+  if args.pat
+    cmd += ['-n', args.pat]
+  end
 
   #> we need to set RUBYLIB, because the test suite
   # invokes the application as a separate process
