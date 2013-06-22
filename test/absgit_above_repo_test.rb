@@ -198,4 +198,14 @@ class AbsgitAboveRepoTest < MiniTest::Unit::TestCase
 
     assert_equal(1, files_in_index(repo).size)
   end
+
+  def test_error_behaviour_for_path_option
+    output, err_msg = capture_subprocess_io do
+      system(APP_PATH, '--path', '/', 'log')
+    end
+
+    refute $?.success?
+    assert_equal('', output)
+    assert_match(/./, err_msg)
+  end
 end
