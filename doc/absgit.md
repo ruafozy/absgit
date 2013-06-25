@@ -43,6 +43,24 @@ a path inside the repository is turned into a
 canonicalised absolute pathname before being passed to Git.
 This enables relative paths and symlinks to work.
 
+## --path
+
+Some Git subcommands,
+such as "`git push`",
+don't operate on paths, which renders the
+above logic useless.
+For situations like this,
+the "`--path`" option is available.
+Its argument is used to determine the values
+of
+`GIT_DIR` and `GIT_WORK_TREE`.
+
+Here's an example use in context:
+
+    vim /home/me/my_project/my_module.rb
+    absgit commit /home/me/my_project/my_module.rb
+    absgit --file /home/me/my_project/my_module.rb push
+
 ## Options
 
 `absgit` accepts the `--help` and `--version` options.
